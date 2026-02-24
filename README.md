@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Andrea Sessa — Photo Portfolio
+
+A minimal, dark-themed photography portfolio built with Next.js. Features a masonry grid layout, individual photo detail pages with camera metadata, and support for Amazon Photos share links.
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)
+
+---
+
+## Features
+
+- **Masonry grid** — responsive CSS columns layout that displays photos at their natural aspect ratio
+- **Photo detail pages** — side-by-side view with the image on the left and metadata (title, location, description, camera/lens/settings) on the right
+- **Amazon Photos proxy** — API route that resolves Amazon Photos share links to displayable image URLs
+- **Dark minimal design** — `#0c0c0c` background, Playfair Display italic headings, subtle hover effects
+- **Page transitions** — fade-in animation when navigating to detail pages
+- **Fully static** — pages are pre-rendered at build time via `generateStaticParams`
+
+## Tech Stack
+
+| Layer       | Technology                          |
+| ----------- | ----------------------------------- |
+| Framework   | Next.js 16 (App Router, Turbopack) |
+| UI          | React 19, Tailwind CSS v4           |
+| Typography  | Geist Sans, Playfair Display        |
+| Language    | TypeScript 5                        |
+| Runtime     | Bun (Docker) / Node.js (local)      |
 
 ## Getting Started
 
-First, run the development server:
+### Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker compose up --build
+```
 
-## Learn More
+The app will be available at [http://localhost](http://localhost) (port 80).
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/
+│   ├── api/image/     # Proxy route for Amazon Photos share links
+│   ├── photo/[id]/    # Individual photo detail pages
+│   ├── globals.css    # Dark theme, fade animation
+│   ├── layout.tsx     # Root layout with font loading
+│   └── page.tsx       # Homepage with masonry grid
+├── data/
+│   └── photos.ts      # Photo data (URLs, titles, camera info)
+└── lib/
+    └── image.ts        # Image URL helpers (proxy detection)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Adding Photos
 
-## Deploy on Vercel
+Edit `src/data/photos.ts` to add or modify photos:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```typescript
+{
+  id: "my-photo",
+  title: "Sunset Over the Alps",
+  description: "A golden evening captured at 3,000 meters.",
+  url: "https://images.unsplash.com/photo-...",
+  // or an Amazon Photos share link:
+  // url: "https://www.amazon.it/photos/share/...",
+  camera: "Sony A7R IV",
+  lens: "24-70mm f/2.8 GM",
+  settings: "f/8 · 1/250s · ISO 100",
+  location: "Dolomites, Italy",
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Both direct image URLs and Amazon Photos share links are supported. Share links are resolved server-side via the `/api/image` proxy route.
+
+## License
+
+All photographs are copyrighted. Code is available for personal use.
