@@ -6,19 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:bootstrap": "node scripts/bootstrap-db.mjs",
+    "db:create-admin": "node scripts/create-admin.mjs"
   },
   "dependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "bcryptjs": "^3.0.3",
+    "iron-session": "^8.0.4",
     "next": "16.1.6",
+    "pg": "^8.18.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19"
+    "typescript": "^5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/pg": "^8.16.0",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6"

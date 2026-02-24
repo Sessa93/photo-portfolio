@@ -1,9 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { photos } from "@/data/photos";
+import { getPhotos } from "@/lib/db";
 import { getImageSrc, needsProxy } from "@/lib/image";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  let photos: Awaited<ReturnType<typeof getPhotos>> = [];
+  try {
+    photos = await getPhotos();
+  } catch {
+    // DB not ready yet — show empty grid
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-[#0c0c0c]">
       {/* Header */}

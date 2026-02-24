@@ -1,25 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { photos } from "@/data/photos";
+import { getPhotoById } from "@/lib/db";
 import { getImageSrc, needsProxy } from "@/lib/image";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-export function generateStaticParams() {
-  return photos.map((photo) => ({ id: photo.id }));
-}
-
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const photo = photos.find((p) => p.id === id);
-  if (!photo) return { title: "Not Found" };
-  return { title: `${photo.title} — Portfolio` };
+  try {
+    const photo = await getPhotoById(id);
+    if (!photo) return { title: "Not Found" };
+    return { title: `${photo.title} — Portfolio` };
+  } catch {
+    return { title: "Portfolio" };
+  }
 }
 
-function DetailRow({ label, value }: { label: string; value?: string }) {
+function DetailRow({ label, value }: { label: string; value?: string | null }) {
   if (!value) return null;
   return (
     <div>
@@ -31,7 +33,12 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
 
 export default async function PhotoDetail({ params }: PageProps) {
   const { id } = await params;
-  const photo = photos.find((p) => p.id === id);
+  let photo;
+  try {
+    photo = await getPhotoById(id);
+  } catch {
+    notFound();
+  }
   if (!photo) notFound();
 
   return (
