@@ -1,32 +1,36 @@
-ARG NODE_VERSION=24.13.1-alpine
+FROM oven/bun:1 AS dependencies
 
+COPY package.json bun.lock* ./
 
-FROM node:${NODE_VERSION} AS base
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --no-save --frozen-lockfile
+
+FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-ENV NODE_ENV=production
-RUN npm ci --omit=dev && npm cache clean --force
-
-
-FROM base AS builder
-
+COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
 
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-FROM node:${NODE_VERSION} AS runner
+RUN bun run build
 
-ENV PORT=3000
-ENV NEXT_TELEMETRY_DISABLE=1
+FROM oven/bun:1 AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/.next/standalone ./      
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public              
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+ENV NEXT_TELEMETRY_DISABLED=1
 
+COPY --from=builder --chown=bun:bun /app/public ./public
+COPY --from=builder --chown=bun:bun /app/.next/standalone ./
+COPY --from=builder --chown=bun:bun /app/.next/static ./.next/static
+
+USER bun
 EXPOSE 3000
 
-ENTRYPOINT ["node", "server.js"]
+CMD ["bun", "server.js"]

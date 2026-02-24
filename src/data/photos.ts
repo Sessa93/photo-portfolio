@@ -70,7 +70,7 @@ export const photos: Photo[] = [
     title: "Arctic Light",
     description:
       "The Northern Lights dance in emerald ribbons above a frozen fjord. Shot on a clear February night in Tromsø, Norway, at −18°C.",
-    url: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200&q=80",
+    url: "https://www.amazon.it/photos/share/d18907fWK3ZXh5IPAIZX0k15Y9jsPEI1HuLZEzFR5l9",
     camera: "Nikon Z7 II",
     lens: "14-24mm f/2.8",
     settings: "f/2.8 · 15s · ISO 3200",
@@ -81,7 +81,7 @@ export const photos: Photo[] = [
     title: "Wildflower Meadow",
     description:
       "A tapestry of lupines and poppies blankets a hillside in Provence. The late-afternoon light lends warmth to an already vivid palette.",
-    url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&q=80",
+    url: "https://www.amazon.it/photos/share/PyPwxJ6l6LcuzMrGgcau0AIn4urUePQMffa6yhbCmVQ",
     camera: "Canon EOS R5",
     lens: "100mm f/2.8L Macro",
     settings: "f/4 · 1/320s · ISO 100",
@@ -92,7 +92,7 @@ export const photos: Photo[] = [
     title: "Foggy Bridge",
     description:
       "The Golden Gate Bridge emerges from a bank of fog rolling in from the Pacific. Only the rust-red towers pierce the grey, standing like sentinels.",
-    url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&q=80",
+    url: "https://www.amazon.it/photos/share/irUhJb1TeVnFlkjKbQj6ZURjp9BrGIcnfjHEcmwicDx",
     camera: "Sony A7 III",
     lens: "24-105mm f/4",
     settings: "f/8 · 1/125s · ISO 200",
