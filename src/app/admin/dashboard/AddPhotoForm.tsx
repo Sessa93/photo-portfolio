@@ -62,9 +62,9 @@ export default function AddPhotoForm({onAdded}: Props) {
             {!open ? (
                 <button
                     onClick={() => setOpen(true)}
-                    className="rounded-md border border-neutral-700 bg-neutral-800 px-5 py-2.5 text-sm font-medium text-neutral-200 transition-all hover:border-neutral-500 hover:bg-neutral-700 hover:text-white"
+                    className="rounded-sm px-8 py-4 text-sm font-medium text-neutral-200 transition-all hover:text-white"
                 >
-                    + Add Photo
+                    Add Photo
                 </button>
             ) : (
                 <form
@@ -121,7 +121,7 @@ export default function AddPhotoForm({onAdded}: Props) {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="rounded-md bg-white px-5 py-2.5 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-200 disabled:opacity-50"
+                            className="rounded-sm bg-white px-8 py-4 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-200 disabled:opacity-50"
                         >
                             {loading ? "Saving…" : "Save photo"}
                         </button>
@@ -131,7 +131,7 @@ export default function AddPhotoForm({onAdded}: Props) {
                                 setOpen(false);
                                 setError("");
                             }}
-                            className="rounded-md border border-neutral-800 px-5 py-2.5 text-sm text-neutral-400 transition-all hover:border-neutral-700 hover:text-white"
+                            className="rounded-sm px-8 py-4 text-sm text-neutral-400 transition-all hover:text-white"
                         >
                             Cancel
                         </button>

@@ -120,14 +120,14 @@ export default function EditPhotoForm({photo, onSaved, onCancel}: Props) {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="rounded-md bg-white px-5 py-2.5 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-200 disabled:opacity-50"
+                    className="rounded-sm px-8 py-4 text-sm font-medium text-neutral-200 transition-all hover:text-white disabled:opacity-50"
                 >
-                    {loading ? "Saving…" : "Save changes"}
+                    {loading ? "Saving…" : "Save"}
                 </button>
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="rounded-md border border-neutral-800 px-5 py-2.5 text-sm text-neutral-400 transition-all hover:border-neutral-700 hover:text-white"
+                    className="rounded-sm px-8 py-4 text-sm text-neutral-400 transition-all hover:text-white"
                 >
                     Cancel
                 </button>

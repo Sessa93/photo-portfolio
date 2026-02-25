@@ -64,13 +64,13 @@ export default function DashboardClient({initialPhotos, username}: Props) {
                     <div className="flex items-center gap-3">
                         <Link
                             href="/"
-                            className="rounded-md border border-neutral-800 px-4 py-2 text-xs text-neutral-400 transition-all hover:border-neutral-600 hover:text-white"
+                            className="rounded-sm px-7 py-3.5 text-xs text-neutral-400 transition-all hover:text-white"
                         >
                             ← View site
                         </Link>
                         <button
                             onClick={handleLogout}
-                            className="rounded-md border border-neutral-700 px-4 py-2 text-xs text-neutral-400 transition-all hover:border-neutral-500 hover:text-white"
+                            className="rounded-sm px-7 py-3.5 text-xs text-neutral-400 transition-all hover:text-white"
                         >
                             Sign out
                         </button>
@@ -122,16 +122,10 @@ export default function DashboardClient({initialPhotos, username}: Props) {
                                             </p>
                                         </div>
 
-                                        {/* Sort order */}
-                                        <span
-                                            className="shrink-0 rounded bg-neutral-800 px-2 py-0.5 text-xs text-neutral-500">
-                      ↕ {photo.sort_order}
-                    </span>
-
                                         {/* Edit */}
                                         <button
                                             onClick={() => setEditingId(editingId === photo.id ? null : photo.id)}
-                                            className="shrink-0 rounded-md border border-neutral-800 px-3 py-2 text-xs text-neutral-500 transition-all hover:border-neutral-600 hover:bg-neutral-800 hover:text-white"
+                                            className="shrink-0 rounded-sm px-6 py-3.5 text-xs text-neutral-500 transition-all hover:bg-neutral-800 hover:text-white"
                                         >
                                             Edit
                                         </button>
@@ -140,7 +134,7 @@ export default function DashboardClient({initialPhotos, username}: Props) {
                                         <button
                                             onClick={() => handleDelete(photo.id)}
                                             disabled={deletingId === photo.id}
-                                            className="shrink-0 rounded-md border border-neutral-800 px-3 py-2 text-xs text-neutral-500 transition-all hover:border-red-900 hover:bg-red-950/50 hover:text-red-400 disabled:opacity-40"
+                                            className="shrink-0 rounded-sm px-6 py-3.5 text-xs text-neutral-500 transition-all hover:bg-red-950/50 hover:text-red-400 disabled:opacity-40"
                                         >
                                             {deletingId === photo.id ? "…" : "Delete"}
                                         </button>
