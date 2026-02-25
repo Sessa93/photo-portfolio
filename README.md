@@ -1,6 +1,7 @@
 # Andrea Sessa — Photo Portfolio
 
-A minimal, dark-themed photography portfolio built with Next.js. Features a masonry grid layout, individual photo detail pages with camera metadata, Amazon Photos proxy, and a secure admin dashboard backed by PostgreSQL.
+A minimal, dark-themed photography portfolio built with Next.js. Features a masonry grid layout, individual photo detail
+pages with camera metadata, Amazon Photos proxy, and a secure admin dashboard backed by PostgreSQL.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
@@ -13,7 +14,8 @@ A minimal, dark-themed photography portfolio built with Next.js. Features a maso
 ## Features
 
 - **Masonry grid** — responsive CSS columns layout that displays photos at their natural aspect ratio
-- **Photo detail pages** — side-by-side view with the image on the left and metadata (title, location, description, camera/lens/settings) on the right
+- **Photo detail pages** — side-by-side view with the image on the left and metadata (title, location, description,
+  camera/lens/settings) on the right
 - **Amazon Photos proxy** — API route that resolves Amazon Photos share links to displayable image URLs
 - **Dark minimal design** — `#0c0c0c` background, Playfair Display headings, subtle hover effects
 - **Page transitions** — fade-in animation when navigating to detail pages
@@ -23,15 +25,15 @@ A minimal, dark-themed photography portfolio built with Next.js. Features a maso
 
 ## Tech Stack
 
-| Layer       | Technology                          |
-| ----------- | ----------------------------------- |
-| Framework   | Next.js 16 (App Router, Turbopack) |
-| UI          | React 19, Tailwind CSS v4           |
-| Typography  | Geist Sans, Playfair Display        |
-| Language    | TypeScript 5                        |
-| Database    | PostgreSQL 18                       |
-| Auth        | iron-session, bcryptjs              |
-| Runtime     | Bun (Docker) / Node.js (local)      |
+| Layer      | Technology                         |
+|------------|------------------------------------|
+| Framework  | Next.js 16 (App Router, Turbopack) |
+| UI         | React 19, Tailwind CSS v4          |
+| Typography | Geist Sans, Playfair Display       |
+| Language   | TypeScript 5                       |
+| Database   | PostgreSQL 18                      |
+| Auth       | iron-session, bcryptjs             |
+| Runtime    | Bun (Docker) / Node.js (local)     |
 
 ## Getting Started
 
@@ -43,7 +45,8 @@ Copy the example env file and edit your secrets:
 cp .env.local.example .env.local
 ```
 
-- `DATABASE_URL` — PostgreSQL connection string (default: `postgresql://postgres:postgres@localhost:5432/photo_portfolio`)
+- `DATABASE_URL` — PostgreSQL connection string (default:
+  `postgresql://postgres:postgres@localhost:5432/photo_portfolio`)
 - `SESSION_SECRET` — at least 32 chars, generate with `openssl rand -base64 32`
 
 ### 2. Install dependencies
@@ -113,14 +116,15 @@ src/
 ## Admin Dashboard
 
 - Visit `/admin` to log in
-- Add new photos (URL, title, description, location, camera, lens, settings, sort order)
+- Add new photos (URL, title, description, location, camera, lens, settings, film, sort order)
 - Photos are stored in the database and displayed on the main grid
 - Delete photos directly from the dashboard
 - Secure session-based authentication
 
 ## Amazon Photos Support
 
-Both direct image URLs and Amazon Photos share links are supported. Share links are resolved server-side via the `/api/image` proxy route.
+Both direct image URLs and Amazon Photos share links are supported. Share links are resolved server-side via the
+`/api/image` proxy route.
 
 ## License
 

@@ -30,6 +30,7 @@ const schema = `
     lens        TEXT,
     settings    TEXT,
     location    TEXT,
+    film        TEXT,
     sort_order  INTEGER NOT NULL DEFAULT 0,
     created_at  TIMESTAMPTZ DEFAULT NOW()
   );
@@ -37,12 +38,18 @@ const schema = `
   CREATE INDEX IF NOT EXISTS photos_sort_order_idx ON photos (sort_order ASC, created_at DESC);
 `;
 
+const migrations = `
+  ALTER TABLE photos ADD COLUMN IF NOT EXISTS film TEXT;
+`;
+
 try {
   await pool.query(schema);
-  console.log("✓ Database schema bootstrapped successfully.");
+  await pool.query(migrations);
+  console.log("\u2713 Database schema bootstrapped successfully.");
   console.log("  Tables created: admin_users, photos");
+  console.log("  Migrations applied.");
 } catch (err) {
-  console.error("✗ Error bootstrapping database:", err.message);
+  console.error("\u2717 Error bootstrapping database:", err.message);
   process.exit(1);
 } finally {
   await pool.end();
