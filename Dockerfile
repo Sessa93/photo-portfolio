@@ -1,11 +1,13 @@
-FROM oven/bun:1 AS dependencies
+FROM oven/bun:1-alpine AS dependencies
+
+WORKDIR /app
 
 COPY package.json bun.lock* ./
 
 RUN --mount=type=cache,target=/root/.bun/install/cache \
     bun install --no-save --frozen-lockfile
 
-FROM oven/bun:1 AS builder
+FROM oven/bun:1-alpine AS builder
 
 WORKDIR /app
 
@@ -17,7 +19,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN bun run build
 
-FROM oven/bun:1 AS runner
+FROM oven/bun:1-alpine AS runner
 
 WORKDIR /app
 
