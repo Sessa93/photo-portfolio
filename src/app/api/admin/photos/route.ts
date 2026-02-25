@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const {title, description, url, camera, lens, settings, location, film, sort_order} = body;
+        const {title, description, url, camera, lens, settings, location, film, tags, sort_order} = body;
 
         if (!title || !url) {
             return NextResponse.json({error: "Title and URL are required."}, {status: 400});
@@ -57,6 +57,7 @@ export async function POST(req: NextRequest) {
             settings: settings || null,
             location: location || null,
             film: film || null,
+            tags: tags || null,
             sort_order: Number(sort_order) || 0,
         });
 

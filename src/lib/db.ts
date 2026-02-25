@@ -24,6 +24,7 @@ export interface DbPhoto {
     settings: string | null;
     location: string | null;
     film: string | null;
+    tags: string | null;
     sort_order: number;
     created_at: Date;
 }
@@ -47,8 +48,8 @@ export async function insertPhoto(
     data: Omit<DbPhoto, "created_at">
 ): Promise<DbPhoto> {
     const {rows} = await pool.query<DbPhoto>(
-        `INSERT INTO photos (id, title, description, url, camera, lens, settings, location, film, sort_order)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        `INSERT INTO photos (id, title, description, url, camera, lens, settings, location, film, tags, sort_order)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      RETURNING *`,
         [
             data.id,
@@ -60,6 +61,7 @@ export async function insertPhoto(
             data.settings || null,
             data.location || null,
             data.film || null,
+            data.tags || null,
             data.sort_order ?? 0,
         ]
     );
@@ -70,7 +72,7 @@ export async function updatePhoto(
     id: string,
     data: Partial<Omit<DbPhoto, "id" | "created_at">>
 ): Promise<DbPhoto | null> {
-    const allowed = ["title", "description", "url", "camera", "lens", "settings", "location", "film", "sort_order"] as const;
+    const allowed = ["title", "description", "url", "camera", "lens", "settings", "location", "film", "tags", "sort_order"] as const;
     const sets: string[] = [];
     const vals: unknown[] = [];
     let idx = 1;

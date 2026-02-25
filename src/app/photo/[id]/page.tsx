@@ -135,6 +135,29 @@ export default async function PhotoDetail({params}: PageProps) {
                         </>
                     )}
 
+                    {/* Tags */}
+                    {photo.tags && photo.tags.trim() && (
+                        <>
+                            <div style={{marginTop: "10px", marginBottom: "10px"}}
+                                 className="my-10 h-px bg-neutral-800"/>
+                            <div className="flex flex-wrap gap-2">
+                                {photo.tags.split(",").map((tag, i) => {
+                                    const trimmed = tag.trim();
+                                    if (!trimmed) return null;
+                                    return (
+                                        <span
+                                            key={i}
+                                            className="inline-block rounded-full border border-neutral-700/50 bg-neutral-800/40 text-[11px] tracking-wide text-neutral-400 backdrop-blur-sm"
+                                            style={{padding: "5px 14px"}}
+                                        >
+                                            {trimmed}
+                                        </span>
+                                    );
+                                })}
+                            </div>
+                        </>
+                    )}
+
                     {/* Bottom spacer */}
                     <div className="flex-1"/>
                 </div>
