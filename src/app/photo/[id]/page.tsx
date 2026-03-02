@@ -147,8 +147,8 @@ export default async function PhotoDetail({params}: PageProps) {
                                     return (
                                         <span
                                             key={i}
-                                            className="inline-block rounded-full border border-neutral-700/50 bg-neutral-800/40 text-[11px] tracking-wide text-neutral-400 backdrop-blur-sm"
-                                            style={{padding: "5px 14px"}}
+                                            className="inline-block rounded-sm border border-neutral-700/50 bg-neutral-800/40 text-[10px] tracking-wide text-neutral-400 backdrop-blur-sm"
+                                            style={{padding: "3px 8px"}}
                                         >
                                             {trimmed}
                                         </span>

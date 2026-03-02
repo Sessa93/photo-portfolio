@@ -119,12 +119,18 @@ export default function AddPhotoForm({onAdded}: Props) {
                                                 setGeneratingTags(true);
                                                 try {
                                                     const locationInput = formRef.current!.elements.namedItem("location") as HTMLInputElement;
+                                                    const filmInput = formRef.current!.elements.namedItem("film") as HTMLInputElement;
+                                                    const lensInput = formRef.current!.elements.namedItem("lens") as HTMLInputElement;
+                                                    const settingsInput = formRef.current!.elements.namedItem("settings") as HTMLInputElement;
                                                     const res = await fetch("/api/admin/generate", {
                                                         method: "POST",
                                                         headers: {"Content-Type": "application/json"},
                                                         body: JSON.stringify({
                                                             imageUrl,
                                                             location: locationInput?.value?.trim() || "",
+                                                            film: filmInput?.value?.trim() || "",
+                                                            lens: lensInput?.value?.trim() || "",
+                                                            settings: settingsInput?.value?.trim() || "",
                                                             field: "tags"
                                                         }),
                                                     });

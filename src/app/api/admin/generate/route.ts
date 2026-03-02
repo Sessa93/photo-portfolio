@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const model = process.env.OPENAI_MODEL || "gpt-4o";
 
-    const {imageUrl, location, field} = await req.json();
+    const {imageUrl, location, field, film, lens, settings} = await req.json();
     if (!imageUrl || typeof imageUrl !== "string") {
         return NextResponse.json({error: "imageUrl is required."}, {status: 400});
     }
@@ -89,6 +89,15 @@ export async function POST(req: NextRequest) {
         const locationHint = location && typeof location === "string" && location.trim()
             ? ` The photo was taken in ${location.trim()}.`
             : "";
+        const filmHint = film && typeof film === "string" && film.trim()
+            ? ` The film used is ${film.trim()}.`
+            : "";
+        const lensHint = lens && typeof lens === "string" && lens.trim()
+            ? ` The lens used is ${lens.trim()}.`
+            : "";
+        const settingsHint = settings && typeof settings === "string" && settings.trim()
+            ? ` The camera settings are ${settings.trim()}.`
+            : "";
 
         let prompt: string;
         let responseFormat: string;
@@ -99,7 +108,7 @@ export async function POST(req: NextRequest) {
             prompt = `You are an assistant for a photography portfolio website. Given the following photo, generate a brief evocative description (1-2 sentences).${locationHint} Respond in JSON format: {"description": "..."}. Do not include any other text.`;
             responseFormat = "description";
         } else if (generateField === "tags") {
-            prompt = `You are an assistant for a photography portfolio website. Given the following photo, generate a comma-separated list of relevant tags (e.g. location, film type, colors, camera, lens, mood, style, subject). Provide 5-10 concise tags.${locationHint} Respond in JSON format: {"tags": "tag1, tag2, tag3, ..."}. Do not include any other text.`;
+            prompt = `You are an assistant for a photography portfolio website. Given the following photo, generate a comma-separated list of relevant tags (e.g. location, film type, colors, camera, lens, mood, style, subject). Provide 5-10 concise tags.${locationHint}${filmHint}${lensHint}${settingsHint} Respond in JSON format: {"tags": "tag1, tag2, tag3, ..."}. Do not include any other text.`;
             responseFormat = "tags";
         } else {
             prompt = `You are an assistant for a photography portfolio website. Given the following photo, generate a short artistic title and a brief evocative description (1-2 sentences).${locationHint} Respond in JSON format: {"title": "...", "description": "..."}. Do not include any other text.`;
