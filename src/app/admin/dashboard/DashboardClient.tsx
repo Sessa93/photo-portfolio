@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { DbPhoto } from "@/lib/db";
 import AddPhotoForm from "./AddPhotoForm";
 import EditPhotoForm from "./EditPhotoForm";
-import Link from "next/link";
+import NavButton from "@/components/NavButton";
 import Image from "next/image";
 import { getImageSrc, needsProxy } from "@/lib/image";
 
@@ -59,7 +59,7 @@ export default function DashboardClient({ initialPhotos, username }: Props) {
           style={{ marginBottom: "40px" }}
         >
           <div>
-            <h1 className="font-[family-name:var(--font-playfair)] text-2xl font-normal text-white">
+            <h1 className="font-(family-name:--font-playfair) text-2xl font-normal text-white">
               Portfolio Admin
             </h1>
             <p
@@ -70,20 +70,12 @@ export default function DashboardClient({ initialPhotos, username }: Props) {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="relative px-8 py-4 text-base font-semibold text-neutral-400 rounded transition-all duration-200 hover:text-white group"
-            >
+            <NavButton href="/" as="link">
               View Site
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="relative px-8 py-4 text-base font-semibold text-neutral-400 rounded transition-all duration-200 hover:text-white group"
-            >
+            </NavButton>
+            <NavButton as="button" onClick={handleLogout} type="button">
               Logout
-              <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </button>
+            </NavButton>
           </div>
         </div>
 

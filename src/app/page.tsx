@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavButton from "@/components/NavButton";
 import { getPhotos } from "@/lib/db";
 import { getImageSrc, needsProxy } from "@/lib/image";
 
@@ -38,38 +39,28 @@ export default async function Home() {
 
       {/* Links */}
       <nav className="mb-6 flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500">
-        <a
+        <NavButton
           href={instagramUrl}
+          as="a"
           target="_blank"
           rel="noopener noreferrer"
-          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
         >
-          Instagram
-          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-        </a>
-        <a
-          href={`mailto:${contactEmail}`}
-          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
-        >
+          <span className="sr-only">Instagram</span>
+        </NavButton>
+        <NavButton href={`mailto:${contactEmail}`} as="a">
           Mail me
-          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-        </a>
-        <a
-          href="/about"
-          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
-        >
+        </NavButton>
+        <NavButton href="/about" as="a">
           About me
-          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-        </a>
+        </NavButton>
         {isLoggedIn && (
-          <Link
+          <NavButton
             href="/admin/dashboard"
-            className="relative px-5 py-2 text-base font-semibold text-neutral-400 border border-neutral-700 rounded transition-colors duration-200 hover:text-white group"
-            style={{ background: "rgba(32,32,32,0.7)" }}
+            as="link"
+            className="font-semibold border border-neutral-700 rounded"
           >
             Admin Dashboard
-            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-          </Link>
+          </NavButton>
         )}
       </nav>
 

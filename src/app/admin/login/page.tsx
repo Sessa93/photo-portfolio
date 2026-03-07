@@ -2,6 +2,8 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import NavButton from "@/components/NavButton";
+import NavButton from "@/components/NavButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,7 +45,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-[#0c0c0c] px-4">
       <div style={{ width: "100%", maxWidth: "360px" }}>
         <h1
-          className="font-[family-name:var(--font-playfair)] text-2xl font-normal text-white"
+          className="font-(family-name:--font-playfair) text-2xl font-normal text-white"
           style={{ marginBottom: "8px" }}
         >
           Admin
@@ -114,13 +116,9 @@ export default function LoginPage() {
         </form>
 
         <div style={{ marginTop: "24px" }}>
-          <a
-            href="/"
-            className="block w-full rounded-md bg-neutral-800 py-2 text-sm font-medium text-white text-center transition-all hover:bg-neutral-700"
-            style={{ padding: "10px 0" }}
-          >
+          <NavButton href="/" as="link" className="w-full text-center">
             Back to Portfolio
-          </a>
+          </NavButton>
         </div>
       </div>
     </main>
