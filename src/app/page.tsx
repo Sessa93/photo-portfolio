@@ -39,12 +39,7 @@ export default async function Home() {
 
       {/* Links */}
       <nav className="mb-6 flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500">
-        <NavButton
-          href={instagramUrl}
-          as="a"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <NavButton href={instagramUrl} as="a">
           <span className="sr-only">Instagram</span>
         </NavButton>
         <NavButton href={`mailto:${contactEmail}`} as="a">

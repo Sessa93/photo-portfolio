@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import NavButton from "@/components/NavButton";
-import NavButton from "@/components/NavButton";
 
 export default function LoginPage() {
   const router = useRouter();
