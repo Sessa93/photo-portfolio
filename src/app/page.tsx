@@ -42,26 +42,33 @@ export default async function Home() {
           href={instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-colors hover:text-white"
+          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
         >
           Instagram
+          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
         </a>
         <a
           href={`mailto:${contactEmail}`}
-          className="transition-colors hover:text-white"
+          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
         >
           Mail me
+          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
         </a>
-        <a href="/about" className="transition-colors hover:text-white">
+        <a
+          href="/about"
+          className="relative px-5 py-2 text-base font-medium text-neutral-400 transition-colors duration-200 hover:text-white group"
+        >
           About me
+          <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
         </a>
         {isLoggedIn && (
           <Link
             href="/admin/dashboard"
-            className="transition-colors hover:text-white font-semibold text-neutral-400 border border-neutral-700 rounded px-3 py-1"
+            className="relative px-5 py-2 text-base font-semibold text-neutral-400 border border-neutral-700 rounded transition-colors duration-200 hover:text-white group"
             style={{ background: "rgba(32,32,32,0.7)" }}
           >
             Admin Dashboard
+            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-neutral-400 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </Link>
         )}
       </nav>
