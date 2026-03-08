@@ -1,6 +1,7 @@
 "use client";
 
 import NavButton from "@/components/NavButton";
+import { fetchImageAsBase64 } from "@/lib/clientImageFetch";
 import { FormEvent, useRef, useState } from "react";
 import { DbPhoto } from "@/lib/db";
 
@@ -163,6 +164,8 @@ export default function AddPhotoForm({ onAdded }: Props) {
                         setError("");
                         setGeneratingTags(true);
                         try {
+                          const imageBase64 =
+                            await fetchImageAsBase64(imageUrl);
                           const locationInput =
                             formRef.current!.elements.namedItem(
                               "location",
@@ -181,7 +184,7 @@ export default function AddPhotoForm({ onAdded }: Props) {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
-                              imageUrl,
+                              imageData: imageBase64,
                               location: locationInput?.value?.trim() || "",
                               film: filmInput?.value?.trim() || "",
                               lens: lensInput?.value?.trim() || "",

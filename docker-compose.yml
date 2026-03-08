@@ -8,7 +8,7 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
-      SESSION_SECRET: your_session_secret_here
+      SESSION_SECRET: your_session_secret_here_000000000000000000000000000000000000
       OPENAI_API_KEY: your_openai_api_key_here
       OPENAI_MODEL: gpt-4o
       INSTAGRAM_URL: https://www.instagram.com/insta-id/
