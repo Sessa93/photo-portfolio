@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
             },
             {
               type: "image_url",
-              image_url: { url: dataUrl },
+              image_url: { url: imageData },
             },
           ],
         },
