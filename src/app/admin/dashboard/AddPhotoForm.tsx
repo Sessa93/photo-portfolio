@@ -264,6 +264,8 @@ export default function AddPhotoForm({ onAdded }: Props) {
                         setError("");
                         setGeneratingDesc(true);
                         try {
+                          const imageBase64 =
+                            await fetchImageAsBase64(imageUrl);
                           const locationInput =
                             formRef.current!.elements.namedItem(
                               "location",
@@ -272,7 +274,7 @@ export default function AddPhotoForm({ onAdded }: Props) {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
-                              imageUrl,
+                              imageData: imageBase64,
                               location: locationInput?.value?.trim() || "",
                               field: "description",
                             }),
@@ -352,6 +354,8 @@ export default function AddPhotoForm({ onAdded }: Props) {
                         setError("");
                         setGeneratingTitle(true);
                         try {
+                          const imageBase64 =
+                            await fetchImageAsBase64(imageUrl);
                           const locationInput =
                             formRef.current!.elements.namedItem(
                               "location",
@@ -360,7 +364,7 @@ export default function AddPhotoForm({ onAdded }: Props) {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
-                              imageUrl,
+                              imageData: imageBase64,
                               location: locationInput?.value?.trim() || "",
                               field: "title",
                             }),
