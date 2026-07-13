@@ -25,13 +25,13 @@ export default function AboutPage() {
             <section className="w-full max-w-3xl px-6 pb-16 sm:px-8">
                 <div className="space-y-6 text-base leading-relaxed text-neutral-300">
                     <p>
-                        Hi, I'm <span className="text-white font-medium">Andrea Sessa</span> — a software
+                        Hi, I&apos;m <span className="text-white font-medium">Andrea Sessa</span> — a software
                         developer by trade and a photographer at heart. I spend my days writing code and my
                         free time chasing light, texture, and the quiet beauty in everyday scenes.
                     </p>
 
                     <p>
-                        My love for photography began with film. There's something irreplaceable about the
+                        My love for photography began with film. There&apos;s something irreplaceable about the
                         deliberate pace of loading a roll, the anticipation of waiting for developed frames,
                         and the organic warmth that only analog emulsions can deliver. Film taught me to slow
                         down, to be intentional with every frame, and to trust the process rather than the
@@ -39,7 +39,7 @@ export default function AboutPage() {
                     </p>
 
                     <p>
-                        That mindset carries over into everything I do — whether I'm composing a photograph
+                        That mindset carries over into everything I do — whether I&apos;m composing a photograph
                         or architecting software. I value simplicity, attention to detail, and the kind of
                         craft that reveals itself quietly over time.
                     </p>
