@@ -1,5 +1,6 @@
 services:
   webapp:
+    image: ghcr.io/sessa93/photo-portfolio:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,11 +9,11 @@ services:
       - 3000:3000
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
-      SESSION_SECRET: your_session_secret_here
-      OPENAI_API_KEY: your_openai_api_key_here
-      OPENAI_MODEL: gpt-4o
-      INSTAGRAM_URL: https://www.instagram.com/insta-id/
-      CONTACT_EMAIL: your-mail-here
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is not set — see .env.example}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:?OPENAI_API_KEY is not set — see .env.example}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o}
+      INSTAGRAM_URL: ${INSTAGRAM_URL:-https://www.instagram.com/andreasessa1}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-andre9308@hotmail.it}
 
   postgres:
     image: postgres:18-alpine
@@ -21,8 +22,6 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: photo_portfolio
-    ports:
-      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql
 

@@ -89,10 +89,11 @@ Open [http://localhost:3000/admin](http://localhost:3000/admin) to log in.
 ### Docker
 
 ```bash
+cp .env.example .env   # fill in real secrets — this file is gitignored
 docker compose up --build
 ```
 
-The app will be available at [http://localhost](http://localhost) (port 80).
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Project Structure
 
@@ -125,6 +126,47 @@ src/
 Photos are served as direct image URLs from a DigitalOcean Spaces bucket, delivered via CDN at
 `https://photo-portfolio-bucket.fra1.cdn.digitaloceanspaces.com`. Paste the full image URL into the admin form when
 adding or editing a photo. Any other direct image URL works too.
+
+## Deployment
+
+Pushes to `main` deploy automatically to a DigitalOcean droplet via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+
+1. **check** — type-checks and lints.
+2. **build** — builds the Docker image and pushes it to GHCR as `ghcr.io/sessa93/photo-portfolio:latest` (and
+   `:sha-<commit>` for rollback reference).
+3. **deploy** — SSHes into the droplet, logs in to GHCR with the run's own token, then runs
+   `git reset --hard origin/main && docker compose pull && docker compose up -d`. The droplet only ever pulls a
+   pre-built image — it never builds locally.
+
+### One-time droplet setup
+
+1. Install Docker Engine and the Compose plugin on the droplet.
+2. Clone the repo somewhere on the droplet, e.g. `git clone git@github.com:Sessa93/photo-portfolio.git ~/photo-portfolio`.
+3. `cd ~/photo-portfolio && cp .env.example .env`, then fill in real secrets (`SESSION_SECRET`, `OPENAI_API_KEY`, etc.) — `.env`
+   is gitignored, so `git reset --hard` on future deploys never touches it.
+4. `docker compose pull && docker compose up -d` once by hand to confirm it comes up (the image must already exist on
+   GHCR — push to `main` at least once first, or `docker compose build` locally as a stopgap), then (if this is a
+   fresh database) bootstrap the schema and an admin user — see [Getting Started](#getting-started) steps 3–4. Note
+   `docker-compose.yml` no longer publishes Postgres's port to the internet; run those scripts locally against a
+   temporary port mapping or SSH tunnel if the droplet's DB is empty.
+5. Generate a dedicated SSH keypair for CI (`ssh-keygen -t ed25519 -f deploy_key -N ""`) and append `deploy_key.pub` to
+   `~/.ssh/authorized_keys` on the droplet for the deploy user.
+
+GHCR authentication on the droplet is handled automatically by the workflow each run (it logs in with the ephemeral
+`GITHUB_TOKEN` before pulling) — no long-lived registry credentials need to be stored on the droplet. The package is
+private by default; the deploying user just needs read access to this repo.
+
+### GitHub configuration
+
+Under the repo's **Settings → Secrets and variables → Actions**, add:
+
+| Name                  | Type     | Value                                                |
+|------------------------|----------|-------------------------------------------------------|
+| `DROPLET_HOST`         | Secret   | Droplet IP or hostname                                |
+| `DROPLET_USERNAME`     | Secret   | SSH user on the droplet                                |
+| `DROPLET_SSH_KEY`      | Secret   | Private half of the deploy keypair (`deploy_key`)      |
+| `DROPLET_PORT`         | Secret   | SSH port, if not 22 (optional)                         |
+| `DEPLOY_PATH`          | Variable | Absolute path to the cloned repo, e.g. `/home/deploy/photo-portfolio` |
 
 ## License
 
