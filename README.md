@@ -7,7 +7,7 @@ PostgreSQL.
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-336791?logo=postgresql)
 
 ---
@@ -31,7 +31,7 @@ PostgreSQL.
 | Framework  | Next.js 16 (App Router, Turbopack) |
 | UI         | React 19, Tailwind CSS v4          |
 | Typography | Geist Sans, Playfair Display       |
-| Language   | TypeScript 5                       |
+| Language   | TypeScript 6                       |
 | Database   | PostgreSQL 18                      |
 | Auth       | iron-session, bcryptjs             |
 | Runtime    | Bun (Docker) / Node.js (local)     |
