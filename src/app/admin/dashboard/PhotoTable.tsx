@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { DbPhoto } from "@/lib/db";
 import Image from "next/image";
-import { getImageSrc, needsProxy } from "@/lib/image";
 
 interface Props {
   initialPhotos: DbPhoto[];
@@ -58,10 +57,9 @@ export default function PhotoTable({ initialPhotos }: Props) {
               style={{ width: "56px", height: "40px" }}
             >
               <Image
-                src={getImageSrc(photo.url)}
+                src={photo.url}
                 alt={photo.title}
                 fill
-                unoptimized={needsProxy(photo.url)}
                 className="object-cover"
                 sizes="56px"
               />

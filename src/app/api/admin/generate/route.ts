@@ -29,35 +29,10 @@ export async function POST(req: NextRequest) {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         };
 
-        let resolvedUrl = imageUrl;
-        if (imageUrl.includes("/photos/share/")) {
-            const pageRes = await fetch(imageUrl, {headers: fetchHeaders});
-            if (!pageRes.ok) {
-                return NextResponse.json(
-                    {error: `Failed to fetch share page: ${pageRes.status}`},
-                    {status: 400},
-                );
-            }
-            const html = await pageRes.text();
-            const ogMatch =
-                html.match(/og:image['"\s]+content=['"]([^'"]+)['"]/) ||
-                html.match(/content=['"]([^'"]+)['"]\s+property=['"]og:image/) ||
-                html.match(/(https:\/\/content[^'"]*cdproxy\/templink[^'"]+)/) ||
-                html.match(/(https:\/\/thumbnails-photos\.amazon\.[^'"]+)/);
-            if (ogMatch) {
-                resolvedUrl = ogMatch[1].replace(/viewBox=[^&]+/, "viewBox=2400%2C2400");
-            } else {
-                return NextResponse.json(
-                    {error: "Could not extract image URL from share link."},
-                    {status: 422},
-                );
-            }
-        }
-
         // Fetch the actual image with retries for transient errors.
         let imageRes: Response | null = null;
         for (let attempt = 0; attempt < 3; attempt++) {
-            imageRes = await fetch(resolvedUrl, {
+            imageRes = await fetch(imageUrl, {
                 redirect: "follow",
                 headers: {
                     ...fetchHeaders,

@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import NavButton from "@/components/NavButton";
 import { getPhotos } from "@/lib/db";
-import { getImageSrc, needsProxy } from "@/lib/image";
 
 export const dynamic = "force-dynamic";
 
@@ -42,10 +41,18 @@ export default async function Home() {
         <NavButton href={instagramUrl} as="a">
           <span className="sr-only">Instagram</span>
         </NavButton>
-        <NavButton href={`mailto:${contactEmail}`} as="a">
+        <NavButton
+          href={`mailto:${contactEmail}`}
+          as="a"
+          className="font-(family-name:--font-playfair) text-lg italic"
+        >
           Mail me
         </NavButton>
-        <NavButton href="/about" as="a">
+        <NavButton
+          href="/about"
+          as="a"
+          className="font-(family-name:--font-playfair) text-lg italic"
+        >
           About me
         </NavButton>
         {isLoggedIn && (
@@ -78,11 +85,10 @@ export default async function Home() {
               style={{ marginBottom: "20px" }}
             >
               <Image
-                src={getImageSrc(photo.url)}
+                src={photo.url}
                 alt={photo.title}
                 width={800}
                 height={600}
-                unoptimized={needsProxy(photo.url)}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="block w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-80"
               />

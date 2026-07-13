@@ -1,7 +1,8 @@
 # Andrea Sessa — Photo Portfolio
 
 A minimal, dark-themed photography portfolio built with Next.js. Features a masonry grid layout, individual photo detail
-pages with camera metadata, Amazon Photos proxy, and a secure admin dashboard backed by PostgreSQL.
+pages with camera metadata, images served from a DigitalOcean Spaces CDN, and a secure admin dashboard backed by
+PostgreSQL.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
@@ -16,7 +17,7 @@ pages with camera metadata, Amazon Photos proxy, and a secure admin dashboard ba
 - **Masonry grid** — responsive CSS columns layout that displays photos at their natural aspect ratio
 - **Photo detail pages** — side-by-side view with the image on the left and metadata (title, location, description,
   camera/lens/settings) on the right
-- **Amazon Photos proxy** — API route that resolves Amazon Photos share links to displayable image URLs
+- **DigitalOcean Spaces CDN** — photos are served as direct image URLs from a DigitalOcean Spaces bucket via CDN
 - **Dark minimal design** — `#0c0c0c` background, Playfair Display headings, subtle hover effects
 - **Page transitions** — fade-in animation when navigating to detail pages
 - **Admin dashboard** — secure login, add/edit/delete photos, all data stored in PostgreSQL
@@ -99,15 +100,13 @@ The app will be available at [http://localhost](http://localhost) (port 80).
 src/
 ├── app/
 │   ├── admin/           # Admin dashboard, login, API routes
-│   ├── api/image/       # Proxy route for Amazon Photos share links
 │   ├── photo/[id]/      # Individual photo detail pages
 │   ├── globals.css      # Dark theme, fade animation
 │   ├── layout.tsx       # Root layout with font loading
 │   └── page.tsx         # Homepage with masonry grid
 ├── lib/
 │   ├── db.ts            # PostgreSQL connection & photo CRUD
-│   ├── session.ts       # Session management (iron-session)
-│   └── image.ts         # Image URL helpers (proxy detection)
+│   └── session.ts       # Session management (iron-session)
 ├── scripts/
 │   ├── bootstrap-db.mjs # CLI: create tables
 │   └── create-admin.mjs # CLI: add admin user
@@ -121,10 +120,11 @@ src/
 - Delete photos directly from the dashboard
 - Secure session-based authentication
 
-## Amazon Photos Support
+## Image Hosting
 
-Both direct image URLs and Amazon Photos share links are supported. Share links are resolved server-side via the
-`/api/image` proxy route.
+Photos are served as direct image URLs from a DigitalOcean Spaces bucket, delivered via CDN at
+`https://photo-portfolio-bucket.fra1.cdn.digitaloceanspaces.com`. Paste the full image URL into the admin form when
+adding or editing a photo. Any other direct image URL works too.
 
 ## License
 

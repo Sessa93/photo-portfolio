@@ -21,7 +21,8 @@ const fields: {
     name: "url",
     label: "Image URL",
     required: true,
-    placeholder: "https://… or Amazon Photos share link",
+    placeholder:
+      "https://photo-portfolio-bucket.fra1.cdn.digitaloceanspaces.com/…",
   },
   {
     name: "title",

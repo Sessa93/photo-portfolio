@@ -7,7 +7,6 @@ import AddPhotoForm from "./AddPhotoForm";
 import EditPhotoForm from "./EditPhotoForm";
 import NavButton from "@/components/NavButton";
 import Image from "next/image";
-import { getImageSrc, needsProxy } from "@/lib/image";
 
 interface Props {
   initialPhotos: DbPhoto[];
@@ -112,10 +111,9 @@ export default function DashboardClient({ initialPhotos, username }: Props) {
                       style={{ width: "60px", height: "44px" }}
                     >
                       <Image
-                        src={getImageSrc(photo.url)}
+                        src={photo.url}
                         alt={photo.title}
                         fill
-                        unoptimized={needsProxy(photo.url)}
                         className="object-cover"
                         sizes="60px"
                       />

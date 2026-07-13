@@ -3,7 +3,6 @@ import Link from "next/link";
 import NavButton from "@/components/NavButton";
 import { notFound } from "next/navigation";
 import { getPhotoById } from "@/lib/db";
-import { getImageSrc, needsProxy } from "@/lib/image";
 
 export const dynamic = "force-dynamic";
 
@@ -84,10 +83,9 @@ export default async function PhotoDetail({ params }: PageProps) {
         >
           <div className="relative h-[50vh] w-full overflow-hidden rounded-md lg:h-[calc(100vh-40px)]">
             <Image
-              src={getImageSrc(photo.url)}
+              src={photo.url}
               alt={photo.title}
               fill
-              unoptimized={needsProxy(photo.url)}
               sizes="(min-width: 1024px) 56vw, 95vw"
               className="rounded-lg object-contain"
               priority
