@@ -15,21 +15,24 @@ services:
       INSTAGRAM_URL: ${INSTAGRAM_URL:-https://www.instagram.com/andreasessa1}
       CONTACT_EMAIL: ${CONTACT_EMAIL:-andre9308@hotmail.it}
     depends_on:
-      setup:
-        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
 
   # One-shot bootstrap: creates the schema and the admin user, then exits.
-  # Runs after postgres is healthy and before webapp starts.
+  # Behind the "setup" profile so `docker compose up` (the deploy) skips it.
+  # Run it manually: docker compose run --rm setup
   setup:
     image: ghcr.io/sessa93/photo-portfolio:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: Dockerfile
     restart: "no"
+    profiles:
+      - setup
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
-      ADMIN_USERNAME: ${ADMIN_USERNAME:?ADMIN_USERNAME is not set — see .env.example}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD is not set — see .env.example}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
     command:
       - sh
       - -c
