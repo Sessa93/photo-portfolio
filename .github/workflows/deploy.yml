@@ -47,9 +47,24 @@ jobs:
           tags: |
             type=raw,value=latest
             type=sha,format=long
-      - uses: docker/build-push-action@v6
+      # Shared base image (bun + deps + scripts), consumed by the compose
+      # `setup` service and reused as the webapp build's base via the gha cache.
+      - name: Build and push base image
+        uses: docker/build-push-action@v6
         with:
           context: .
+          target: base
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:base
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:base-${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build and push webapp image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: runner
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

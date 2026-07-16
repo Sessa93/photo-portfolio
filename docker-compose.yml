@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: runner
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -22,10 +23,11 @@ services:
   # Behind the "setup" profile so `docker compose up` (the deploy) skips it.
   # Run it manually: docker compose run --rm setup
   setup:
-    image: ghcr.io/sessa93/photo-portfolio:${IMAGE_TAG:-latest}
+    image: ghcr.io/sessa93/photo-portfolio:${BASE_TAG:-base}
     build:
       context: .
       dockerfile: Dockerfile
+      target: base
     restart: "no"
     profiles:
       - setup
