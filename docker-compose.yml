@@ -14,6 +14,29 @@ services:
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o}
       INSTAGRAM_URL: ${INSTAGRAM_URL:-https://www.instagram.com/andreasessa1}
       CONTACT_EMAIL: ${CONTACT_EMAIL:-andre9308@hotmail.it}
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+
+  # One-shot bootstrap: creates the schema and the admin user, then exits.
+  # Runs after postgres is healthy and before webapp starts.
+  setup:
+    image: ghcr.io/sessa93/photo-portfolio:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: "no"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
+      ADMIN_USERNAME: ${ADMIN_USERNAME:?ADMIN_USERNAME is not set — see .env.example}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD is not set — see .env.example}
+    command:
+      - sh
+      - -c
+      - bun scripts/bootstrap-db.mjs && bun scripts/create-admin.mjs
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres:18-alpine
@@ -23,7 +46,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: photo_portfolio
     volumes:
-      - postgres_data:/var/lib/postgresql
-
-volumes:
-  postgres_data: {}
+      # Physical (bind-mounted) volume: data lives on the host under ./data/postgres.
+      - ./data/postgres:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d photo_portfolio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10

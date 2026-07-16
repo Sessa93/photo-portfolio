@@ -28,6 +28,11 @@ async function prompt(question) {
 async function main() {
   let [, , username, password] = process.argv;
 
+  // Fall back to env vars so the script can run non-interactively (e.g. the
+  // docker-compose `setup` service), then to an interactive prompt.
+  username ??= process.env.ADMIN_USERNAME;
+  password ??= process.env.ADMIN_PASSWORD;
+
   if (!username) {
     username = await prompt("Username: ");
   }

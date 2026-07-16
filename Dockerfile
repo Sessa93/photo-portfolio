@@ -31,6 +31,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=builder --chown=bun:bun /app/public ./public
 COPY --from=builder --chown=bun:bun /app/.next/standalone ./
 COPY --from=builder --chown=bun:bun /app/.next/static ./.next/static
+# Bootstrap/admin scripts, used by the docker-compose `setup` service. They
+# resolve `pg`/`bcryptjs` from the standalone node_modules copied above.
+COPY --from=builder --chown=bun:bun /app/scripts ./scripts
 
 USER bun
 EXPOSE 3000
