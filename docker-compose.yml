@@ -12,8 +12,8 @@ services:
       - 8.8.8.8
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
-      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is not set — see .env.example}
-      OPENAI_API_KEY: ${OPENAI_API_KEY:?OPENAI_API_KEY is not set — see .env.example}
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o}
       INSTAGRAM_URL: ${INSTAGRAM_URL:-https://www.instagram.com/andreasessa1}
       CONTACT_EMAIL: ${CONTACT_EMAIL:-andre9308@hotmail.it}

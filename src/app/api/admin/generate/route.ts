@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
                     ],
                 },
             ],
-            max_tokens: 200,
+            max_completion_tokens: 200,
         });
 
         const content = response.choices[0]?.message?.content?.trim() ?? "";
