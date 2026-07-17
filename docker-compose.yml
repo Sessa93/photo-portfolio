@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     ports:
       - 3000:3000
+    dns:
+      - 8.8.8.8
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/photo_portfolio
       SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is not set — see .env.example}
